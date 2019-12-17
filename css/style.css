@@ -47,7 +47,7 @@
 /* Banner Area */ 
 
 .site-main .site-banner {
-    background: url(../img/banner/home-banner.png) no-repeat 0% 50%;
+    background: url(../img/banner/home-banner.png) no-repeat 20% 50%;
 }
 
 .site-main .site-banner .site-title h3{
@@ -77,6 +77,38 @@
     padding: 7rem 0;
     width: 90rem;
 }
+
+.divider {
+  display: block;
+  width: 100px;
+  margin: 40px auto 30px auto;
+  border: 0;
+  border-top: 1px solid #CCC;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.hero-description {
+  color: #777;
+  letter-spacing: -0.1px;
+  line-height: 25px;
+  margin: 0 0 10px 0;
+}
+
+.hero-image {
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  margin: 25px 0;
+}
+
+.margin-top-2 {
+	margin-top: 30px;
+}
+
+/* End Banner Area */ 
 
 
 /* Footer Area */ 
