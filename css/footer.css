@@ -1,7 +1,8 @@
 footer{
-    background: #f1f1f1;
+    background-color: rgb(24, 27, 32);
     padding: 90px 0;
     font-family: 'Poppins', sans-serif;
+    color: #f1f1f1;
 }
   
 .footer-container {
