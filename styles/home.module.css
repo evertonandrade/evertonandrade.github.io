@@ -1,0 +1,16 @@
+.mainContent {
+  max-width: 42rem;
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem auto 0 auto;
+}
+
+.aboutSection {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.avatarImage {
+  border-radius: 50%;
+}
