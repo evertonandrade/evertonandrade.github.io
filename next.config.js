@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['avatars.githubusercontent.com'],
+    loader: 'imgix',
+    path: '/',
   },
   webpack(config) {
     config.module.rules.push({
