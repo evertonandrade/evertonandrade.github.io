@@ -1,6 +1,6 @@
 .footer {
   max-width: 42rem;
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -13,6 +13,7 @@
 .copyright {
   font-size: 0.8rem;
 }
+
 
 .socialContainer {
   font-size: 1.6rem;
