@@ -23,8 +23,12 @@ const Navigation = () => {
       <div className={styles.containerNav}>
         <nav className={styles.nav}>
           {navLinks.map((navLink) => (
-            <Link href={navLink.href} key={navLink.href}>
-              <a className={linkStyle(navLink.href)}>{navLink.title}</a>
+            <Link
+              href={navLink.href}
+              key={navLink.href}
+              className={linkStyle(navLink.href)}
+            >
+              {navLink.title}
             </Link>
           ))}
         </nav>
