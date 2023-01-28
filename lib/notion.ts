@@ -1,41 +1,72 @@
 import { Client } from '@notionhq/client';
+import { Post } from './types';
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-export const getDatabase = async (databaseId: string) => {
-  const response = await notion.databases.query({
-    database_id: databaseId,
+const PostStatus = {
+  NOT_STARTED: 'not started',
+  IN_PROGRESS: 'in progress',
+  DONE: 'done',
+};
+
+async function getDatabase() {
+  const database = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE_ID,
+    filter: {
+      property: 'status',
+      status: {
+        equals: PostStatus.DONE,
+      },
+    },
   });
 
-  return response.results;
-};
+  return database;
+}
 
-export const getPage = async (pageId: string) => {
-  const response = await notion.pages.retrieve({
-    page_id: pageId,
+export async function getPosts(): Promise<Post[]> {
+  const database = await getDatabase();
+  const posts = database.results.map((result) => {
+    // TS type guards
+    if (
+      !('properties' in result) ||
+      !('rich_text' in result.properties.slug) ||
+      !('title' in result.properties.page) ||
+      !('rich_text' in result.properties.description) ||
+      !(
+        'date' in result.properties.publishedAt &&
+        result.properties.publishedAt.date != null
+      )
+    )
+      throw new Error('Invalid Notion Database');
+
+    return {
+      id: result.id,
+      slug: result.properties.slug.rich_text[0].plain_text,
+      title: result.properties.page.title[0].plain_text,
+      description: result.properties.description.rich_text[0].plain_text,
+      date: result.properties.publishedAt.date.start,
+    };
   });
 
-  return response;
-};
+  return posts;
+}
 
-export const getBlocks = async (blockId: string) => {
-  const blocks = [];
-  let cursor: string | undefined;
+export async function getPaths() {
+  const database = await getDatabase();
+  const paths = database.results.map((result) => {
+    // TS type guards
+    if (!('properties' in result) || !('rich_text' in result.properties.slug))
+      throw new Error('Invalid Notion Database');
 
-  while (true) {
-    const { results, next_cursor } = await notion.blocks.children.list({
-      start_cursor: cursor,
-      block_id: blockId,
-    });
+    return {
+      params: {
+        id: result.id,
+        slug: result.properties.slug.rich_text[0].plain_text,
+      },
+    };
+  });
 
-    blocks.push(...results);
-
-    if (!next_cursor) break;
-
-    cursor = next_cursor;
-  }
-
-  return blocks;
-};
+  return paths;
+}

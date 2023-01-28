@@ -39,15 +39,9 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--title-color);
 }
 
-a,
-a:visited {
+a {
   text-decoration: none;
-  color: var(--color);
-}
-
-a:active,
-a:hover {
-  color: var(--color);
+  color: var(--title-color);
 }
 
 .container {
