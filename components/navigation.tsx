@@ -5,8 +5,8 @@ import styles from '../styles/navigation.module.css';
 const navLinks = [
   { title: 'home', href: '/' },
   { title: 'blog', href: '/blog' },
-  { title: 'portfolio', href: '/portfolio' },
-  { title: 'resume', href: '/resume' },
+  { title: 'projects', href: '/projects' },
+  { title: 'cv', href: 'curriculum.pdf' },
 ];
 
 const Navigation = () => {
@@ -24,8 +24,8 @@ const Navigation = () => {
         <nav className={styles.nav}>
           {navLinks.map((navLink) => (
             <Link
-              href={navLink.href}
               key={navLink.href}
+              href={navLink.href}
               className={linkStyle(navLink.href)}
             >
               {navLink.title}

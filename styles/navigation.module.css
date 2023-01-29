@@ -20,6 +20,7 @@
 .link {
   position: relative;
   padding: 0.5rem 0;
+  color: var(--title-color);;
 }
 
 .link::after {
