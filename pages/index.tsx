@@ -1,4 +1,4 @@
-import { NextPage } from 'next/types';
+import { GetStaticProps, NextPage } from 'next/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/home.module.css';
@@ -56,7 +56,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const posts = await getPosts();
   return {
     props: {
