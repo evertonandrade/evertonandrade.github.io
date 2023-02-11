@@ -28,14 +28,13 @@ body {
   font-family: var(--font);
   transition: background-color 1s linear, color 1s linear;
   overflow-x: hidden;
-  min-height: 100vh;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--color);
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -71,4 +70,5 @@ a {
   margin: 0 auto;
   max-width: 42rem;
   width: 100%;
+  margin-bottom: 4rem;
 }
