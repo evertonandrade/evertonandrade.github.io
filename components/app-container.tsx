@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-const AppContainer = ({ children }: { children: ReactNode }) => {
-  return <div className="container">{children}</div>;
+const MainCpntainer = ({ children }: { children: ReactNode }) => {
+  return <main className="container">{children}</main>;
 };
 
-export default AppContainer;
+export default MainCpntainer;

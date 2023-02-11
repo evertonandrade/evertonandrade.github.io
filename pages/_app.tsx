@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';
-import AppContainer from '../components/app-container';
+import MainContainer from '../components/app-container';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
 import '../styles/globals.css';
@@ -14,11 +14,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           <title>Everton Andrade | Personal Website</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <AppContainer>
-          <Navigation />
+        <Navigation />
+        <MainContainer>
           <Component {...pageProps} />
-          <Footer />
-        </AppContainer>
+        </MainContainer>
+        <Footer />
       </ThemeProvider>
     </>
   );

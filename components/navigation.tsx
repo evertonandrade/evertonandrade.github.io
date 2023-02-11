@@ -12,11 +12,16 @@ const navLinks = [
 const Navigation = () => {
   const router = useRouter();
 
-  const linkStyle = (href: string) =>
-    `${styles.link} ${activeLink(href, router.asPath)}`;
+  const linkStyle = (href: string) => {
+    return `${styles.link} ${activeLink(href, router.asPath, router.query)}`;
+  };
 
-  const activeLink = (href: string, pathname: string) =>
-    href === pathname ? styles.active : '';
+  const activeLink = (href: string, pathname: string, query: object) => {
+    if (Object.keys(query).length) {
+      href += '/' + Object.values(query).join('/');
+    }
+    return pathname === href ? styles.active : '';
+  };
 
   return (
     <header className={styles.header}>

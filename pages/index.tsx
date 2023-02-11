@@ -14,44 +14,44 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = (props: HomeProps) => {
   return (
     <>
-      <main className={styles.mainContent}>
-        <section className={styles.aboutSection}>
-          <div>
-            <h2>{props.name}</h2>
-            <p>{props.description}</p>
-          </div>
-          <Image
-            src={props.imageUrl}
-            alt="avatar"
-            width={80}
-            height={80}
-            className={styles.avatarImage}
-          />
-        </section>
-        <section>
-          <h2 className={styles.heading}>Latest Posts</h2>
-          <ol className={styles.posts}>
-            {props.posts.map((post) => (
-              <li key={post.id} className={styles.post}>
+      <section className={styles.aboutSection}>
+        <div>
+          <h2>{props.name}</h2>
+          <p>{props.description}</p>
+        </div>
+        <Image
+          src={props.imageUrl}
+          alt="avatar"
+          width={80}
+          height={80}
+          className={styles.avatarImage}
+        />
+      </section>
+      <section>
+        <h2 className={styles.heading}>Latest Posts</h2>
+        <ol className={styles.posts}>
+          {props.posts.map((post) => (
+            <li key={post.id} className={styles.post}>
+              <Link href={`/blog/${post.slug}`}>
                 <h3 className={styles.postTitle}>{post.title}</h3>
-                <div className={styles.postDescription}>
-                  <p className={styles.postDate}>
-                    {new Date(post.date).toLocaleString('en-US', {
-                      month: 'short',
-                      day: '2-digit',
-                      year: 'numeric',
-                    })}
-                  </p>
-                  <p>{post.description}</p>
-                </div>
-                <Link className={styles.link} href={`/blog/${post.slug}`}>
-                  Read post →
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </section>
-      </main>
+              </Link>
+              <div className={styles.postDescription}>
+                <p className={styles.postDate}>
+                  {new Date(post.date).toLocaleString('en-US', {
+                    month: 'short',
+                    day: '2-digit',
+                    year: 'numeric',
+                  })}
+                </p>
+                <p>{post.description}</p>
+              </div>
+              <Link className={styles.link} href={`/blog/${post.slug}`}>
+                Read post →
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
     </>
   );
 };

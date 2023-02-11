@@ -27,11 +27,15 @@ body {
   margin: 0;
   font-family: var(--font);
   transition: background-color 1s linear, color 1s linear;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--color);
+  display: flex;
+  flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -44,8 +48,27 @@ a {
   color: var(--link-color);
 }
 
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--bg-color);
+  -webkit-border-radius: 0.6rem;
+  border-radius: 0.6rem;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 0.6rem;
+  border-radius: 0.6rem;
+  background: var(--color);
+  transition: ease-in-out 3s all;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--link-color);
+}
+
 .container {
-  padding: 0 20px;
-  max-width: 700px;
   margin: 0 auto;
+  max-width: 42rem;
+  width: 100%;
 }
