@@ -18,7 +18,8 @@ const Navigation = () => {
   };
 
   const activeLink = (href: string, pathname: string, query: object) => {
-    if (Object.keys(query).length) {
+    const hasQueriesParams = Object.keys(query).length > 0;
+    if (hasQueriesParams) {
       href += '/' + Object.values(query).join('/');
     }
     return pathname === href ? styles.active : '';

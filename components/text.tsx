@@ -1,13 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from '../styles/post.module.css';
 
-
-const Text = ({ text }) => {
+// TODO: remove any type
+const Text = ({ text }: any) => {
   if (!text) {
     return null;
   }
-  return text.map((value) => {
+  // TODO: remove any type
+  return text.map((value: any) => {
     const {
       annotations: { bold, code, color, italic, strikethrough, underline },
       text,

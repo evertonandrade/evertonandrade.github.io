@@ -1,34 +1,34 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { getBlocks, getPage, getPaths, getPosts } from '../../lib';
+import { getBlocks, getPage, getPaths } from '../../lib';
 import styles from '../../styles/post.module.css';
 import { Fragment } from 'react';
 import Text from '../../components/text';
-import Image from 'next/image';
 
 interface PostProps {
   page: any;
   blocks: any[];
 }
 
-const renderNestedList = (block) => {
+// TODO: remove any type
+const renderNestedList = (block: any) => {
   const value = block[block.type];
   if (!value) return null;
 
   const isNumberedList = value.children[0].type === 'numbered_list_item';
 
+  // TODO: remove any type
   if (isNumberedList) {
-    return <ol>{value.children.map((block) => renderBlock(block))}</ol>;
+    return <ol>{value.children.map((block: any) => renderBlock(block))}</ol>;
   } else {
-    return <ul>{value.children.map((block) => renderBlock(block))}</ul>;
+    return <ul>{value.children.map((block: any) => renderBlock(block))}</ul>;
   }
 };
 
-const renderBlock = (block) => {
+const renderBlock = (block: any) => {
   const { type, id } = block;
   const value = block[type];
 
@@ -80,7 +80,7 @@ const renderBlock = (block) => {
           <summary>
             <Text text={value.rich_text} />
           </summary>
-          {value.children?.map((block) => (
+          {value.children?.map((block: any) => (
             <Fragment key={block.id}>{renderBlock(block)}</Fragment>
           ))}
         </details>
@@ -141,7 +141,7 @@ const renderBlock = (block) => {
   }
 };
 
-export default function Post({ page, blocks }) {
+export default function Post({ page, blocks }: any) {
   if (!page || !blocks) {
     return <div />;
   }
@@ -157,7 +157,7 @@ export default function Post({ page, blocks }) {
           <Text text={page.properties.name.title} />
         </h1>
         <section>
-          {blocks.map((block) => (
+          {blocks.map((block: any) => (
             <Fragment key={block.id}>{renderBlock(block)}</Fragment>
           ))}
           <Link href="/" className={styles.back}>
@@ -189,13 +189,10 @@ export const getStaticProps = async (
   if (!('properties' in page) || !('title' in page.properties.name)) {
     throw new Error('Invalid Page');
   }
-  const title = page.properties.name.title[0].plain_text;
   const blocks = await getBlocks(page.id);
   const childBlocks = await Promise.all(
     blocks
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      .filter((block) => block.has_children)
+      .filter((block: any) => block.has_children)
       .map(async (block) => {
         return {
           id: block.id,
@@ -203,12 +200,8 @@ export const getStaticProps = async (
         };
       })
   );
-  const blocksWithChildren = blocks.map((block) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  const blocksWithChildren = blocks.map((block: any) => {
     if (block.has_children && !block[block.type].children) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       block[block.type]['children'] = childBlocks.find(
         (x) => x.id === block.id
       )?.children;
