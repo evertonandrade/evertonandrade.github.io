@@ -41,12 +41,6 @@ body {
   }
 }
 
-@media only screen and (max-device-height: 1000px) {
-  body {
-    min-height: 1700px;
-  }
-}
-
 h1,
 h2,
 h3,

@@ -16,7 +16,7 @@ const ThemeSwitch = () => {
   if (!mounted) return null;
 
   return (
-    <div style={{cursor: 'pointer', padding: '0.2rem'}} onClick={handleChangeTheme}>
+    <div style={{cursor: 'pointer'}} onClick={handleChangeTheme}>
       {resolvedTheme === 'dark' ? <Dark /> : <Light />}
     </div>
   );
