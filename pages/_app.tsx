@@ -9,7 +9,7 @@ import '../styles/globals.css';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <ThemeProvider attribute="class" enableSystem={false}>
+      <ThemeProvider>
         <Head>
           <title>Everton Andrade | Personal Website</title>
           <link rel="icon" href="/favicon.ico" />

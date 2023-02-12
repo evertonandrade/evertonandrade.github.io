@@ -13,12 +13,10 @@
   --link-color: #2563eb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color: #eee;
-    --title-color: #fff;
-    --bg-color: #111;
-  }
+[data-theme='dark'] {
+  --color: #eee;
+  --title-color: #fff;
+  --bg-color: #111;
 }
 
 html,
@@ -26,7 +24,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: var(--font);
-  transition: background-color 1s linear, color 1s linear;
+  transition: background-color 0.3s linear, color 0.3s linear;
   overflow-x: hidden;
 }
 

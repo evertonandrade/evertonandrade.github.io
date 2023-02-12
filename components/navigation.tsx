@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '../styles/navigation.module.css';
+import ThemeSwitch from './theme-switch';
 
 const navLinks = [
   { title: 'home', href: '/' },
@@ -37,6 +38,7 @@ const Navigation = () => {
             </Link>
           ))}
         </nav>
+        <ThemeSwitch />
       </div>
     </header>
   );
