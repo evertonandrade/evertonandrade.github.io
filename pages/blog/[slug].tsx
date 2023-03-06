@@ -9,6 +9,7 @@ import { Fragment } from 'react';
 import Text from '../../components/text';
 import { useEffect } from 'react';
 import hljs from 'highlight.js';
+import HighlightTheme from '../../components/highlight-theme';
 
 interface PostProps {
   page: any;
@@ -133,6 +134,7 @@ const renderBlock = (block: any) => {
     case 'code':
       return (
         <pre className={styles.pre}>
+          <HighlightTheme />
           <code className={`language-${value.language}`} key={id}>
             {value.rich_text[0].plain_text}
           </code>
