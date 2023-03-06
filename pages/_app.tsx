@@ -5,6 +5,7 @@ import MainContainer from '../components/app-container';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
 import '../styles/globals.css';
+import 'highlight.js/styles/vs.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

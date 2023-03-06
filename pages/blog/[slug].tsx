@@ -7,26 +7,44 @@ import { getBlocks, getPage, getPaths } from '../../lib';
 import styles from '../../styles/post.module.css';
 import { Fragment } from 'react';
 import Text from '../../components/text';
+import { useEffect } from 'react';
+import hljs from 'highlight.js';
 
 interface PostProps {
   page: any;
   blocks: any[];
 }
 
-// TODO: remove any type
-const renderNestedList = (block: any) => {
-  const value = block[block.type];
-  if (!value) return null;
-
-  const isNumberedList = value.children[0].type === 'numbered_list_item';
-
-  // TODO: remove any type
-  if (isNumberedList) {
-    return <ol>{value.children.map((block: any) => renderBlock(block))}</ol>;
-  } else {
-    return <ul>{value.children.map((block: any) => renderBlock(block))}</ul>;
+export default function Post({ page, blocks }: PostProps) {
+  useEffect(() => {
+    hljs.highlightAll();
+  });
+  if (!page || !blocks) {
+    return <div />;
   }
-};
+  return (
+    <div>
+      <Head>
+        <title>{page.properties.name.title[0].plain_text}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <article className={styles.articleContainer}>
+        <h1 className={styles.name}>
+          <Text text={page.properties.name.title} />
+        </h1>
+        <section>
+          {blocks.map((block: any) => (
+            <Fragment key={block.id}>{renderBlock(block)}</Fragment>
+          ))}
+          <Link href="/" className={styles.back}>
+            ← Go home
+          </Link>
+        </section>
+      </article>
+    </div>
+  );
+}
 
 const renderBlock = (block: any) => {
   const { type, id } = block;
@@ -58,18 +76,28 @@ const renderBlock = (block: any) => {
         </h3>
       );
     case 'bulleted_list_item':
+      return (
+        <ul>
+          <li key={value}>
+            <Text text={value.rich_text} />
+            {!!value.children && renderNestedList(block)}
+          </li>
+        </ul>
+      );
     case 'numbered_list_item':
       return (
-        <li>
-          <Text text={value.rich_text} />
-          {!!value.children && renderNestedList(block)}
-        </li>
+        <ol>
+          <li key={value}>
+            <Text text={value.rich_text} />
+            {!!value.children && renderNestedList(block)}
+          </li>
+        </ol>
       );
     case 'to_do':
       return (
         <div>
           <label htmlFor={id}>
-            <input type="checkbox" id={id} defaultChecked={value.checked} />{' '}
+            <input type="checkbox" id={id} checked={value.checked} readOnly />{' '}
             <Text text={value.rich_text} />
           </label>
         </div>
@@ -105,7 +133,7 @@ const renderBlock = (block: any) => {
     case 'code':
       return (
         <pre className={styles.pre}>
-          <code className={styles.code_block} key={id}>
+          <code className={`language-${value.language}`} key={id}>
             {value.rich_text[0].plain_text}
           </code>
         </pre>
@@ -115,7 +143,7 @@ const renderBlock = (block: any) => {
         value.type === 'external' ? value.external.url : value.file.url;
       const splitSourceArray = src_file.split('/');
       const lastElementInArray = splitSourceArray[splitSourceArray.length - 1];
-      const caption_file = value.caption ? value.caption[0]?.plain_text : '';
+      const captionFile = value.caption ? value.caption[0]?.plain_text : '';
       return (
         <figure>
           <div className={styles.file}>
@@ -124,7 +152,7 @@ const renderBlock = (block: any) => {
               {lastElementInArray.split('?')[0]}
             </Link>
           </div>
-          {caption_file && <figcaption>{caption_file}</figcaption>}
+          {captionFile && <figcaption>{captionFile}</figcaption>}
         </figure>
       );
     case 'bookmark':
@@ -141,37 +169,18 @@ const renderBlock = (block: any) => {
   }
 };
 
-export default function Post({ page, blocks }: any) {
-  if (!page || !blocks) {
-    return <div />;
+const renderNestedList = (block: any) => {
+  const value = block[block.type];
+  if (!value) return null;
+
+  const isNumberedList = value.children[0].type === 'numbered_list_item';
+
+  if (isNumberedList) {
+    return <ol>{value.children.map((block: any) => renderBlock(block))}</ol>;
+  } else {
+    return <ul>{value.children.map((block: any) => renderBlock(block))}</ul>;
   }
-  return (
-    <div>
-      <Head>
-        <title>{page.properties.name.title[0].plain_text}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <article className={styles.container}>
-        <h1 className={styles.name}>
-          <Text text={page.properties.name.title} />
-        </h1>
-        <section>
-          {blocks.map((block: any) => (
-            <Fragment key={block.id}>{renderBlock(block)}</Fragment>
-          ))}
-          <Link href="/" className={styles.back}>
-            ← Go home
-          </Link>
-        </section>
-      </article>
-    </div>
-  );
-}
-
-interface PageParams extends ParsedUrlQuery {
-  slug: string;
-}
+};
 
 export const getStaticPaths = async () => {
   const paths = await getPaths();
@@ -180,6 +189,10 @@ export const getStaticPaths = async () => {
     fallback: true,
   };
 };
+
+interface PageParams extends ParsedUrlQuery {
+  slug: string;
+}
 
 export const getStaticProps = async (
   context: GetStaticPropsContext<PageParams>
