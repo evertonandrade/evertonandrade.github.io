@@ -35,9 +35,9 @@ body {
   position: relative;
 }
 
-@media only screen and (max-device-height: 1000px) {
+@media only screen and (max-width: 480px) {
   body {
-    min-height: 720px;
+    min-height: 86vh;
   }
 }
 
