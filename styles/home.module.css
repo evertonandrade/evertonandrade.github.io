@@ -49,12 +49,11 @@
 .postDescription {
   margin-top: 0;
   margin-bottom: 12px;
-  opacity: 0.65;
+  opacity: 0.9;
 }
 
 .postDate {
   font-size: 14px;
-  opacity: 0.75;
   margin: 0;
 }
 

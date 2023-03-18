@@ -58,12 +58,15 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const posts = await getPosts();
+  const latestPosts = posts
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 2);
   return {
     props: {
       name: `Everton Andrade`,
       description: `Web developer, computer science degree and open source enthusiast.`,
       imageUrl: 'https://avatars.githubusercontent.com/u/43795982?v=4',
-      posts,
+      posts: latestPosts,
     },
     revalidate: 1,
   };

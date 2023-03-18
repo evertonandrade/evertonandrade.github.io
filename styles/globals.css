@@ -10,6 +10,7 @@
   --color: #111;
   --title-color: #000;
   --bg-color: #eee;
+  --bg-color-secondary: #e0e0e0;
   --link-color: #2563eb;
 }
 
@@ -17,6 +18,7 @@
   --color: #eee;
   --title-color: #fff;
   --bg-color: #111;
+  --bg-color-secondary: #282826;
 }
 
 html,
