@@ -61,32 +61,34 @@ export const getBlocks = async (blockId: string) => {
   return blocks;
 };
 
-export async function getPosts(): Promise<Post[]> {
+export async function getPosts(size: number | null = null): Promise<Post[]> {
   const database = await getDatabase();
-  const posts = database.results.map((result) => {
-    // TS type guards
-    if (
-      !('properties' in result) ||
-      !('rich_text' in result.properties.slug) ||
-      !('title' in result.properties.name) ||
-      !('rich_text' in result.properties.description) ||
-      !(
-        'date' in result.properties.publishedAt &&
-        result.properties.publishedAt.date != null
+  const posts = database.results
+    .map((result) => {
+      // TS type guards
+      if (
+        !('properties' in result) ||
+        !('rich_text' in result.properties.slug) ||
+        !('title' in result.properties.name) ||
+        !('rich_text' in result.properties.description) ||
+        !(
+          'date' in result.properties.publishedAt &&
+          result.properties.publishedAt.date != null
+        )
       )
-    )
-      throw new Error('Invalid Notion Database');
+        throw new Error('Invalid Notion Database');
 
-    return {
-      id: result.id,
-      slug: result.properties.slug.rich_text[0].plain_text,
-      title: result.properties.name.title[0].plain_text,
-      description: result.properties.description.rich_text[0].plain_text,
-      date: result.properties.publishedAt.date.start,
-    };
-  });
+      return {
+        id: result.id,
+        slug: result.properties.slug.rich_text[0].plain_text,
+        title: result.properties.name.title[0].plain_text,
+        description: result.properties.description.rich_text[0].plain_text,
+        date: result.properties.publishedAt.date.start,
+      };
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  return posts;
+  return posts.slice(0, size ?? posts.length);
 }
 
 export async function getPaths() {

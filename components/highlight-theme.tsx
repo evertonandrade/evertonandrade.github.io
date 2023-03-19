@@ -12,7 +12,7 @@ const HighlightTheme = () => {
     newlinkStyleHighlight.rel = 'stylesheet';
     newlinkStyleHighlight.type = 'text/css';
     newlinkStyleHighlight.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/${
-      resolvedTheme == 'dark' ? 'github-dark' : 'github'
+      resolvedTheme == 'dark' ? 'vs2015' : 'vs'
     }.min.css`;
     document.head.appendChild(newlinkStyleHighlight);
   }, [resolvedTheme]);
