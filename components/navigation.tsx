@@ -1,28 +1,27 @@
+'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
+import { ThemeSwitch } from './theme-switch';
 import styles from '../styles/navigation.module.css';
-import ThemeSwitch from './theme-switch';
 
 const navLinks = [
-  { title: 'home', href: '/' },
-  { title: 'blog', href: '/blog' },
-  { title: 'projects', href: '/projects' },
-  { title: 'cv', href: 'curriculum.pdf' },
+  { label: 'início', href: '/' },
+  { label: 'blog', href: '/blog' },
+  { label: 'sobre mim', href: '/about' },
+  { label: 'projetos', href: '/projects' },
 ];
 
-const Navigation = () => {
-  const router = useRouter();
+export const Navigation = () => {
+  const pathname = usePathname();
 
   const linkStyle = (href: string) => {
-    return `${styles.link} ${activeLink(href, router.asPath, router.query)}`;
+    return `${styles.link} ${activeLink(href, pathname)}`;
   };
 
-  const activeLink = (href: string, pathname: string, query: object) => {
-    const hasQueriesParams = Object.keys(query).length > 0;
-    if (hasQueriesParams) {
-      href += '/' + Object.values(query).join('/');
-    }
-    return pathname === href ? styles.active : '';
+  const activeLink = (href: string, pathname: string) => {
+    return href.split('/').at(1) === pathname.split('/').at(1)
+      ? styles.active
+      : '';
   };
 
   return (
@@ -35,7 +34,7 @@ const Navigation = () => {
               href={navLink.href}
               className={linkStyle(navLink.href)}
             >
-              {navLink.title}
+              {navLink.label}
             </Link>
           ))}
         </nav>
@@ -44,5 +43,3 @@ const Navigation = () => {
     </header>
   );
 };
-
-export default Navigation;

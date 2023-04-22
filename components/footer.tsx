@@ -4,7 +4,7 @@ import Linkedin from '../public/icons/linkedin.svg';
 import Twitter from '../public/icons/twitter.svg';
 import Email from '../public/icons/email.svg';
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.copyright}>
@@ -51,5 +51,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

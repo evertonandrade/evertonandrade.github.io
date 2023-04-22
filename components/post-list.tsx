@@ -1,10 +1,15 @@
-import Link from 'next/link';
+'use client';
 import { useState } from 'react';
-import { getPosts } from '../../lib';
-import { Post } from '../../lib/types';
-import styles from '../../styles/blog.module.css';
+import Link from 'next/link';
+import { Post } from '@/lib/types';
+import { formattedDate } from '@/lib/utils';
+import styles from '@/styles/blog.module.css';
 
-const Blog = ({ posts }: { posts: Post[] }) => {
+interface PostListProps {
+  posts: Post[];
+}
+
+export const PostList = ({ posts }: PostListProps) => {
   const [search, setSearch] = useState<string>('');
 
   const postFiltered = posts.filter((post) => {
@@ -14,8 +19,7 @@ const Blog = ({ posts }: { posts: Post[] }) => {
   });
 
   return (
-    <div>
-      <h1>Blog</h1>
+    <>
       <div>
         <input
           type="search"
@@ -36,11 +40,7 @@ const Blog = ({ posts }: { posts: Post[] }) => {
                 <div className={styles.postDescription}>
                   <span>{post.description} - </span>
                   <span className={styles.postDate}>
-                    {new Date(post.date).toLocaleString('en-US', {
-                      month: 'short',
-                      day: '2-digit',
-                      year: 'numeric',
-                    })}
+                    {formattedDate(post.date)}
                   </span>
                 </div>
               </Link>
@@ -48,18 +48,6 @@ const Blog = ({ posts }: { posts: Post[] }) => {
           ))}
         </ol>
       </section>
-    </div>
+    </>
   );
 };
-
-export const getStaticProps = async () => {
-  const posts = await getPosts();
-  return {
-    props: {
-      posts,
-    },
-    revalidate: 1,
-  };
-};
-
-export default Blog;

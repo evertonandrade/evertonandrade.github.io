@@ -1,9 +1,10 @@
+'use client'
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import Light from '../public/icons/light.svg';
 import Dark from '../public/icons/dark.svg';
 
-const ThemeSwitch = () => {
+export const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -21,5 +22,3 @@ const ThemeSwitch = () => {
     </div>
   );
 };
-
-export default ThemeSwitch;

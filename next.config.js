@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  swcMinify: true,
   reactStrictMode: true,
+  experimental: {
+    appDir: true,
+  },
   images: {
+    loader: 'default',
     domains: ['avatars.githubusercontent.com'],
+    unoptimized: true
   },
   webpack(config) {
     config.module.rules.push({
