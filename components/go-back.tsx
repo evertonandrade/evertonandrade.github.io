@@ -8,7 +8,7 @@ export const GoBack = () => {
   };
   return (
     <a onClick={handleGoBack} style={{ cursor: 'pointer' }}>
-      ← Go back
+      ← Voltar
     </a>
   );
 };

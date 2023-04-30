@@ -24,7 +24,7 @@ async function HomePage() {
         />
       </section>
       <section>
-        <h2 className={styles.heading}>Latest Posts</h2>
+        <h2 className={styles.heading}>Últimos Posts</h2>
         <ol className={styles.posts}>
           {posts.map((post) => (
             <li key={post.id} className={styles.post}>
@@ -36,7 +36,7 @@ async function HomePage() {
                 <p>{post.description}</p>
               </div>
               <Link className={styles.link} href={`/blog/${post.slug}`}>
-                Read post →
+                Ler post →
               </Link>
             </li>
           ))}

@@ -1,5 +1,5 @@
 function AboutPage() {
-  return <h1>Sobre mim</h1>;
+  return <h2>Sobre mim</h2>;
 }
 
 export default AboutPage;

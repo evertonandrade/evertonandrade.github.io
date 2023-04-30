@@ -6,7 +6,7 @@ async function BlogPage() {
 
   return (
     <>
-      <h1>Blog</h1>
+      <h2>Posts</h2>
       <PostList posts={posts} />
     </>
   );
