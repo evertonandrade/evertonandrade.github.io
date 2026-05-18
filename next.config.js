@@ -1,23 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  swcMinify: true,
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
   images: {
-    loader: 'default',
-    domains: ['avatars.githubusercontent.com'],
-    unoptimized: true
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+    ],
   },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: [{ loader: '@svgr/webpack', options: { icon: true } }],
-    });
-
-    return config;
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: { icon: true },
+          },
+        ],
+        as: '*.js',
+      },
+    },
   },
 };
 

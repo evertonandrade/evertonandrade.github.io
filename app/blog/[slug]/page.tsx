@@ -11,13 +11,14 @@ export const generateStaticParams = async () => {
 };
 
 interface PostProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 async function Post(props: PostProps) {
-  const post = await getPostBySlug(props.params.slug);
+  const { slug } = await props.params;
+  const post = await getPostBySlug(slug);
   const contentHtml = await markdownToHtml(post.contentMarkdown!);
 
   return (

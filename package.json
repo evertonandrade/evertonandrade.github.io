@@ -4,31 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "next build --turbopack",
+    "start": "next start"
   },
   "dependencies": {
-    "next": "13.3.1",
-    "next-themes": "0.2.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "remark": "^14.0.2",
-    "remark-html": "^15.0.2"
+    "next": "16.2.6",
+    "next-themes": "0.4.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
-    "@svgr/webpack": "^7.0.0",
-    "@types/node": "18.16.0",
-    "@types/react": "18.0.38",
-    "@typescript-eslint/eslint-plugin": "^5.59.0",
-    "@typescript-eslint/parser": "^5.59.0",
-    "eslint": "^8.39.0",
-    "eslint-config-next": "13.3.1",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-import-resolver-typescript": "^3.5.5",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.7",
-    "typescript": "5.0.4"
+    "@svgr/webpack": "^8.1.0",
+    "@types/node": "25.9.0",
+    "@types/react": "19.2.14",
+    "prettier": "^3.8.3",
+    "typescript": "6.0.3"
   },
   "prettier": {
     "printWidth": 80,
@@ -36,31 +28,5 @@
     "singleQuote": true,
     "tabWidth": 2,
     "useTabs": false
-  },
-  "eslintConfig": {
-    "rules": {
-      "@typescript-eslint/no-non-null-assertion": "off"
-    },
-    "env": {
-      "browser": true,
-      "es2021": true
-    },
-    "extends": [
-      "plugin:@typescript-eslint/recommended",
-      "next",
-      "next/core-web-vitals",
-      "prettier"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": 12,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "@typescript-eslint"
-    ]
   }
 }
